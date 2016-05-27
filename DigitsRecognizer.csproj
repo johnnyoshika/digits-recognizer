@@ -46,7 +46,7 @@
     <Compile Include="DataReader.cs" />
     <Compile Include="Evaluator.cs" />
     <Compile Include="IClassifier.cs" />
-    <Compile Include="IDistance.cs" />
+    <Compile Include="Distance.cs" />
     <Compile Include="Observation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

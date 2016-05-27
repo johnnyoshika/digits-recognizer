@@ -10,16 +10,19 @@ namespace DigitsRecognizer
     {
         static void Main(string[] args)
         {
-            var distance = new ManhattanDistance();
-            var classifier = new BasicClassifier(distance);
-
             var trainingSet = DataReader.ReadObservations(@"C:\Users\Johnny\Documents\Visual Studio 2015\Projects\DigitsRecognizer\Data\train.csv");
-            classifier.Train(trainingSet);
-
             var validation = DataReader.ReadObservations(@"C:\Users\Johnny\Documents\Visual Studio 2015\Projects\DigitsRecognizer\Data\validation.csv");
 
-            var correct = Evaluator.Correct(validation, classifier);
-            Console.WriteLine("Correctly classified: {0:P2}", correct);
+            var manhattanClassifier = new BasicClassifier(Distance.Manhattan);
+            manhattanClassifier.Train(trainingSet);
+            var manhattenCorrect = Evaluator.Correct(validation, manhattanClassifier);
+            Console.WriteLine("Manhattan correctly classified: {0:P2}", manhattenCorrect);
+
+            var euclideanClassifier = new BasicClassifier(Distance.Euclidean);
+            euclideanClassifier.Train(trainingSet);
+            var euclideanCorrect = Evaluator.Correct(validation, euclideanClassifier);
+            Console.WriteLine("Euclidean correctly classified: {0:P2}", euclideanCorrect);
+
             Console.ReadLine();
         }
     }

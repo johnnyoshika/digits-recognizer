@@ -15,17 +15,17 @@ namespace DigitsRecognizer
     public class BasicClassifier : IClassifier
     {
 
-        public BasicClassifier(IDistance distance)
-        {
-            Distance = distance;
-        }
+        IEnumerable<Observation> _data;
+        readonly Func<int[], int[], double> _distance;
 
-        IEnumerable<Observation> Data { get; set; }
-        IDistance Distance { get; }
+        public BasicClassifier(Func<int[], int[], double> distance)
+        {
+            _distance = distance;
+        }
 
         public void Train(IEnumerable<Observation> trainingSet)
         {
-            Data = trainingSet;
+            _data = trainingSet;
         }
 
         public string Predict(int[] pixels)
@@ -33,9 +33,9 @@ namespace DigitsRecognizer
             Observation currentBest = null;
             var shortest = double.MaxValue;
 
-            foreach (var obs in Data)
+            foreach (var obs in _data)
             {
-                var dist = Distance.Between(obs.Pixels, pixels);
+                var dist = _distance(obs.Pixels, pixels);
                 if (dist < shortest)
                 {
                     shortest = dist;
