@@ -10,8 +10,12 @@ namespace DigitsRecognizer
     {
         static void Main(string[] args)
         {
-            var trainingSet = DataReader.ReadObservations(@"C:\Users\Johnny\Documents\Visual Studio 2015\Projects\DigitsRecognizer\Data\train.csv");
-            var validation = DataReader.ReadObservations(@"C:\Users\Johnny\Documents\Visual Studio 2015\Projects\DigitsRecognizer\Data\validation.csv");
+
+            string path = Environment.CurrentDirectory.Split(new[] { "\\bin" }, StringSplitOptions.None)[0];
+
+            // data from: https://www.kaggle.com/c/digit-recognizer
+            var trainingSet = DataReader.ReadObservations($@"{path}\Data\train.csv");
+            var validation = DataReader.ReadObservations($@"{path}\Data\validation.csv");
 
             var manhattanClassifier = new BasicClassifier(Distance.Manhattan);
             manhattanClassifier.Train(trainingSet);
