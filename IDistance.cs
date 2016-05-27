@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DigitsRecognizer
+{
+    public interface IDistance
+    {
+        double Between(int[] pixels1, int[] pixels2);
+    }
+
+    public class ManhattanDistance : IDistance
+    {
+        public double Between(int[] pixels1, int[] pixels2)
+        {
+            if (pixels1.Length != pixels2.Length)
+                throw new ArgumentException("Inconsistent image sizes.");
+
+            var distance = 0;
+            for (int i = 0; i < pixels1.Length; i++)
+                distance += Math.Abs(pixels1[i] - pixels2[i]);
+
+            return distance;
+        }
+    }
+}
